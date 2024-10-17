@@ -1,8 +1,14 @@
 ##Calculate phylogenetic signal##
 
 ##Load in phylogeny##
+revised_Pseudosuchia_dichotomous.phy <- multi2di(collapse.singles(revised_Pseudosuchia.phy), random = FALSE)
+revised_Pseudosuchia_calibrated.phy <- paleotree::timePaleoPhy(revised_Pseudosuchia_dichotomous.phy, Revised_Species_Duration_Table, type="equal", vartime = 0.11)
 
-Pseudosuchia_calibrated.phy$tip.label
+temp <- Adult_mean_coords[,,match(revised_Pseudosuchia_calibrated.phy$tip.label,gsub(" ", "_", dimnames(Adult_mean_coords)[[3]]))]
+dimnames(temp)[[3]] <- revised_Pseudosuchia_calibrated.phy$tip.label
+
+physignal(A=temp, phy=revised_Pseudosuchia_calibrated.phy)
+
 ##
 
 ##Create mean adult/subadult shapes for all species##
@@ -24,12 +30,18 @@ for (i in 1:length(Unique_Adult_Species_list)){
 }
 ##
 
-## Reorder coords to match phylogeny ##
-Mean_coords_phy_order <- Adult_mean_coords[,,match(Pseudosuchia_calibrated.phy$tip.label,gsub(" ", "_", dimnames(Adult_mean_coords)[[3]]))]
-dimnames(Mean_coords_phy_order)[[3]] <- Pseudosuchia_calibrated.phy$tip.label
-##
-
-## Peform phylogenetic signal calculation ##
-physignal(A=Mean_coords_phy_order, phy=Pseudosuchia_calibrated.phy)
-##
-
+## Perform phylogenetic signal calculation for all trees ##
+physig_list <- list()
+physig_matrix <- matrix(nrow=length(final_Pseudosuchia.phy),ncol=3,dimnames = list(c(1:length(final_Pseudosuchia.phy)),c("PhySig(K)","p-value","Effect Size")))
+for (i in 1:length(final_Pseudosuchia.phy)){
+  tree <- final_Pseudosuchia.phy[[i]]
+    # Reorder coords to match phylogeny ##
+    temp <- Adult_mean_coords[,,match(tree$tip.label,gsub(" ", "_", dimnames(Adult_mean_coords)[[3]]))]
+    dimnames(temp)[[3]] <- tree$tip.label
+    #
+  physig_temp  <- physignal(A=temp, phy=tree)
+  physig_matrix[i,1] <- physig_temp$phy.signal
+  physig_matrix[i,2] <- physig_temp$pvalue
+  physig_matrix[i,3] <- physig_temp$Z
+}
+#
