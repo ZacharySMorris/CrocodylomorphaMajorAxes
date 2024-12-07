@@ -11,10 +11,19 @@ library(GMMMajorAxes)
 1. Load raw landmark data, specimen covariate data, species level phylogeny
 2. Perform GPA and PCA
 3. Subset shape data and specimen covariate data
-4. Time calibrate phylogeny
-5. 
+4. Estimate morphological disparity & test for differences
+5. Time calibrate phylogeny & calculate phylogenetic signal
+6. Estimate & Compare MAs of Extant Crocodylian Ontogeny
+7. Estimate MA of Extant Crocodylian Adult Ecology
+8. Compare MAs of Ecomorph Ontogeny to Extant Ecology
+9. Estimate MAs of Extinct Pseudosuchian Subgroups
+10. Compare MAs of Extinct Pseudosuchians with Extant Ecology & Ontogeny
+11. Estimate & Compare MAs of Geologic Time Periods
+12. Prepare dataset of mean adult shape for all species and mean embryo shapes
+13. Perform embryonic 'convergence' test
+14. Perform extant ontogeny trajectory analysis
 
-|Script|Steps|
+|Script Name|Steps|
 |---|---|
 |Loading & Subsetting|1,2,3|
 

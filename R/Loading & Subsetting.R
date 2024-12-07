@@ -1,7 +1,7 @@
 ### load dependencies, datasets, and set up values for plotting ###
 
 ## dependencies
-devtools::install_github("ZacharySMorris/GMM-Major-Axes", force = T)
+devtools::install_github("ZacharySMorris/GMM-Major-Axes", auth_token = "abc", force = T)
 library(GMMMajorAxes)
 
 detach("package:GMMMajorAxes", unload=TRUE)
@@ -15,20 +15,23 @@ detach("package:convevol", unload=TRUE)
 ## load datasets
 load("data/Combined_CrocDorsal.Rdata") # raw landmark data
 load("data/skull_wireframe.Rdata") # landmark links for wireframe
-load("data/classifier.Rdata") # specimen covariate data
-load("data/Pseudosuchia.phy.Rdata") # phylogeny
-#load("data/Species_Durations.Rdata") # species occurance data
-load("data/Species_Duration_Table.Rdata") # species occurance data
+#load("data/classifier.Rdata") # specimen covariate data
+load("data/revised_classifier.Rdata") # revised specimen covariate data
+#load("data/Pseudosuchia.phy.Rdata") # phylogeny
+load("data/revised_Pseudosuchia.phy.Rdata") # revised phylogeny
+#load("data/Species_Durations.Rdata") # species occurrence data
+#load("data/Species_Duration_Table.Rdata") # species occurrence data
+load("data/revised_Species_Duration_Table.Rdata") # revised species occurrence data
 
-classifier <- read.csv("/Users/zach/Dropbox/NHM Summer 2024/MajorAxes_NatureEE_Revisions/MajorAxes_Covariates_Revised.csv")
-classifier <- read.csv("/Users/zmorris/Library/CloudStorage/Dropbox/NHM Summer 2024/MajorAxes_NatureEE_Revisions/MajorAxes_Covariates_Revised.csv")
+#revised_classifier <- read.csv("/Users/zach/Dropbox/NHM Summer 2024/MajorAxes_NatureEE_Revisions/MajorAxes_Covariates_Revised.csv")
+#classifier <- read.csv("/Users/zmorris/Library/CloudStorage/Dropbox/NHM Summer 2024/MajorAxes_NatureEE_Revisions/MajorAxes_Covariates_Revised.csv")
 
 ## perform gpa & pca
 Combined_CrocDorsal.gpa <- gpagen(Combined_CrocDorsal)
 
-rownames(Species_Duration_Table) <- gsub("Metriorhynchus_superciliosum","Thalattosuchus_superciliosus",rownames(Species_Duration_Table))
-rownames(Species_Duration_Table) <- gsub("Steneosaurus_leedsi","Charitomenosuchus_leedsi",rownames(Species_Duration_Table))
-rownames(Species_Duration_Table) <- gsub("Hyposaurus_natator","Hyposaurus_rogersii",rownames(Species_Duration_Table))
+#rownames(Species_Duration_Table) <- gsub("Metriorhynchus_superciliosum","Thalattosuchus_superciliosus",rownames(Species_Duration_Table))
+#rownames(Species_Duration_Table) <- gsub("Steneosaurus_leedsi","Charitomenosuchus_leedsi",rownames(Species_Duration_Table))
+#rownames(Species_Duration_Table) <- gsub("Hyposaurus_natator","Hyposaurus_rogersii",rownames(Species_Duration_Table))
 
 Combined_CrocDorsal.pca <- gm.prcomp(Combined_CrocDorsal.gpa$coords)
 ##
